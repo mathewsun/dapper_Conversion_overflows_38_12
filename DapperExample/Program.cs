@@ -1,20 +1,19 @@
 ﻿using Dapper;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 
 namespace DapperExample
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("start application");
-
-            using (IDbConnection db = new SqlConnection("server=192.168.1.69;user=exchange;password=exchange1;database=Exchange"))
+            using (IDbConnection db = new SqlConnection("server=localhost;user=exchange;password=exchange1;database=Exchange"))
             {
-                var result = db.Query<Wallets>("SELECT Id, Convert(Decimal(38,14),Value) as Value from Wallets").ToList();
+                var result = await db.QueryAsync<Wallets>("SELECT Convert(Decimal(38,20),91234567.12345678901234567891) as Value");
 
-                var i = 10;
+                int i = 10;
             }
 
         }
